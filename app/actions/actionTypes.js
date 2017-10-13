@@ -1,0 +1,8 @@
+
+export const SET_ITEMS = 'SET_ITEMS';
+export const EDIT_ITEM = 'EDIT_ITEM';
+export const ADD_ITEM = 'ADD_ITEM';
+
+export const FETCH_ITEMS_PENDING = 'FETCH_ITEMS_PENDING';
+export const FETCH_ITEMS_SUCCESS = 'FETCH_ITEMS_SUCCESS';
+export const FETCH_ITEMS_FAIL = 'FETCH_ITEMS_FAIL';

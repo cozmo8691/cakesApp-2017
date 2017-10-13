@@ -1,0 +1,10 @@
+{
+  "presets": [
+    ["env", {
+      "useBuiltIns": true
+    }],
+    "react",
+    "airbnb"
+  ],
+  "plugins": ["transform-class-properties"]
+}
