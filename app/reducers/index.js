@@ -1,10 +1,8 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 
-// Reducers
 import ItemsReducer from './ItemsReducer';
 
-// Combine Reducers
-var reducers = combineReducers({
+const reducers = combineReducers({
   itemsState: ItemsReducer,
 });
 

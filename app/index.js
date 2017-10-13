@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-import routes from './routes';
+//import routes from './routes';
+import MainContainer from './components/MainContainer';
 
 ReactDOM.render(
   <Provider store={store}>
-    {routes}
+    <MainContainer />
   </Provider>,
   document.getElementById('app')
 );
