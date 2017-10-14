@@ -22,6 +22,11 @@ const ItemsReducer = function(state = initialState, action) {
       return Object.assign({}, state, {
         itemId: action.itemId
       });
+
+    case Types.CANCEL_EDIT_ITEM:
+      return Object.assign({}, state, {
+        itemId: null
+      });
   }
 
   return state;

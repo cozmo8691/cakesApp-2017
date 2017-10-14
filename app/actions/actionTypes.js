@@ -1,6 +1,15 @@
 
 export const LOAD_ITEMS = 'LOAD_ITEMS';
 export const BEGIN_EDIT_ITEM = 'BEGIN_EDIT_ITEM';
+export const CANCEL_EDIT_ITEM = 'CANCEL_EDIT_ITEM';
+
+
+export const INIT_FORM = 'INIT_FORM';
+
+
+
+
+
 export const BEGIN_ADD_ITEM = 'BEGIN_ADD_ITEM';
 export const SAVE_ITEM = 'SAVE_ITEM';
 

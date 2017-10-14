@@ -20,3 +20,9 @@ export function beginEditItem(itemId) {
     itemId
   };
 }
+
+export function cancelEditItem() {
+  return {
+    type: Types.CANCEL_EDIT_ITEM
+  };
+}
