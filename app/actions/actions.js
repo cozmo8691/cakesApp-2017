@@ -1,15 +1,28 @@
 import * as Types from '../actions/actionTypes';
 
 
-export function getItemsSuccess(items) {
+export function fetchItemsSuccess(items) {
   return dispatch => {
-    dispatch(setItems(items));
+    dispatch(loadItems(items));
   };
 }
 
-export function setItems(items) {
+export function loadItems(items) {
   return {
-    type: Types.SET_ITEMS,
+    type: Types.LOAD_ITEMS,
     items
+  };
+}
+
+export function beginEditItem(itemId) {
+  return {
+    type: Types.BEGIN_EDIT_ITEM,
+    itemId
+  };
+}
+
+export function cancelEditItem() {
+  return {
+    type: Types.CANCEL_EDIT_ITEM
   };
 }

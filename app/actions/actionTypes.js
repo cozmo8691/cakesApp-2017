@@ -1,7 +1,17 @@
 
-export const SET_ITEMS = 'SET_ITEMS';
-export const EDIT_ITEM = 'EDIT_ITEM';
-export const ADD_ITEM = 'ADD_ITEM';
+export const LOAD_ITEMS = 'LOAD_ITEMS';
+export const BEGIN_EDIT_ITEM = 'BEGIN_EDIT_ITEM';
+export const CANCEL_EDIT_ITEM = 'CANCEL_EDIT_ITEM';
+
+
+export const INIT_FORM = 'INIT_FORM';
+
+
+
+
+
+export const BEGIN_ADD_ITEM = 'BEGIN_ADD_ITEM';
+export const SAVE_ITEM = 'SAVE_ITEM';
 
 export const FETCH_ITEMS_PENDING = 'FETCH_ITEMS_PENDING';
 export const FETCH_ITEMS_SUCCESS = 'FETCH_ITEMS_SUCCESS';

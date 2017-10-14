@@ -1,11 +1,11 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 
-// Reducers
 import ItemsReducer from './ItemsReducer';
+import FormsReducer from './FormsReducer';
 
-// Combine Reducers
-var reducers = combineReducers({
+const reducers = combineReducers({
   itemsState: ItemsReducer,
+  formsState: FormsReducer
 });
 
 export default reducers;
