@@ -27,8 +27,8 @@ export default class Modal extends React.Component {
     } = this.props;
 
     return (
-      <div className='modal-show'>
-        <div className='modal'>
+      <div className='modal-wrapper'>
+        <div className='modal-window'>
           <h3>{heading}</h3>
           <button
             className="close-button"

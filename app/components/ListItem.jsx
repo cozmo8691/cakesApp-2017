@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router';
 
-const ListItem = ({item, beginEditItem}) => (
+const ListItem = ({item}) => (
   <li>
     <img src={item.image} alt={item.title} />
     <h2>{item.title}</h2>

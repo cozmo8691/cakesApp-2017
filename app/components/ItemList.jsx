@@ -13,19 +13,13 @@ export default class ItemList extends React.Component {
 
 
   render() {
-
-    const {items, ...rest} = this.props;
-
-    console.log(rest);
-    console.log(this.props);
+    const {items} = this.props;
 
     return (<ul className='item-list'>
       {items.map((item, i) =>
         !item.hidden &&
-        <ListItem
-          key={i}
+        <ListItem key={i}
           item={item}
-          {...rest}
         />
       )}
     </ul>)
