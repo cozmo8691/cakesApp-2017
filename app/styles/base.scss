@@ -1,15 +1,104 @@
-
-html {
-  color: #666;
+body {
+  background-color: $backgroundMainColour;
   font-family: 'Open Sans', sans-serif;
   font-size: 100%;
-  background: orange;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes fadein {
+  from {opacity:0;}
+  to {opacity:1;}
+}
+
+@keyframes fadeout {
+  from {opacity:1;}
+  to {opacity:0;}
+}
+
+h1 {
+  padding: 20px;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h1, h2 {
+  font-weight: 300;
+}
+
+p {
+  font-style: italic;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+li {
+  list-style: none;
 }
 
 
-h3 {
-
+input {
+  width: 80%;
+  height: 30px;
+  text-indent: 0.5rem;
+  color: $inputTextColour;
+  border: 1px solid #ccc;
 }
-h4 {
 
+.btn-add {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 50px;
+  height: 50px;
+  font-size: 2rem;
+}
+
+.btn {
+  background: $btnBGColour;
+  border: 2px solid white;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+}
+
+.loading-msg {
+  position: absolute;
+  color: $inputTextColour;
+  top: 0;
+  left: 0;
+}
+
+
+
+@media (min-width: 620px) {
+  h2 {
+    font-size: 3rem;
+  }
+
+  .search input {
+    width: 50%;
+  }
+
+  .btn-add {
+    width: 75px;
+    height: 75px;
+    font-size: 3rem;
+  }
 }

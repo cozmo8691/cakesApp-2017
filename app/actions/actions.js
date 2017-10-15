@@ -1,5 +1,19 @@
 import * as Types from '../actions/actionTypes';
 import * as modes from '../config/modes';
+import itemsAPI from '../API/itemsAPI';
+
+
+export function fetchItems() {
+  return dispatch => {
+    itemsAPI.loadData()
+      .done((response) => {
+        dispatch(fetchItemsSuccess(response));
+      })
+      .fail((response) => {
+        dispatch(updateFetchItemsStatus(modes.DONE_FAIL));
+      });
+  }
+}
 
 export function updateFetchItemsStatus(nextStatus) {
   return {
@@ -34,5 +48,12 @@ export function filterItems(searchTerm) {
   return {
     type: Types.FILTER_ITEMS,
     searchTerm
+  };
+}
+
+export function updateEditItemId(itemId) {
+  return {
+    type: Types.UPDATE_EDIT_ITEM_ID,
+    itemId
   };
 }

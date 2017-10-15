@@ -6,6 +6,7 @@ import * as modes from '../config/modes';
 
 const initialState = {
   items: [],
+  editItemId: null,
   requestStatus: modes.IDLE
 };
 
@@ -15,6 +16,11 @@ const ItemsReducer = function(state = initialState, action) {
     case Types.UPDATE_FETCH_ITEMS_STATUS:
       return Object.assign({}, state, {
         requestStatus: action.nextStatus
+      });
+
+    case Types.UPDATE_EDIT_ITEM_ID:
+      return Object.assign({}, state, {
+        editItemId: action.itemId
       });
 
     case Types.LOAD_ITEMS:

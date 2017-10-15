@@ -1,16 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-
-export default class Form extends React.Component {
+class Form extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(props)
-
     this.state = {
-      item: props.item.itemId !== '' ? props.item : Object.assign({}, props.item, {
-        itemId: props.itemId
-      })
+      item: props.item
     };
   }
 
@@ -29,18 +25,32 @@ export default class Form extends React.Component {
 
   render() {
     const {item} = this.state;
-    const {saveItem} = this.props;
 
     return (
       <form>
         {Object.keys(item).map(key =>
-          <input key={key}
-            value={item[key]}
-            onChange={e => {this._updateValue(key, e.target.value)}}
-          />
+          <div className={`form-row ${key}`} key={key}>
+            <label>{key}</label>
+            <input value={item[key]}
+              type='text'
+              onChange={e => {this._updateValue(key, e.target.value)}}
+            />
+          </div>
         )}
-        <div onClick={this._saveItem.bind(null, item)}>Save</div>
+        <div className='btn btn-save'
+          onClick={this._saveItem.bind(null, item)}>Save</div>
       </form>
     )
   }
 }
+
+Form.propTypes = {
+  item: PropTypes.object.isRequired,
+  cancelModal: PropTypes.func.isRequired
+};
+
+Form.defaultProps = {
+  item: {}
+};
+
+export default Form;
