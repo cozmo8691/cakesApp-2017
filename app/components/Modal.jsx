@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class Modal extends React.Component {
+class Modal extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -22,16 +23,14 @@ export default class Modal extends React.Component {
   render() {
     const {
       children,
-      heading,
       onClose
     } = this.props;
 
     return (
-      <div className='modal-show'>
-        <div className='modal'>
-          <h3>{heading}</h3>
+      <div className='modal-wrapper'>
+        <div className='modal-window'>
           <button
-            className="close-button"
+            className="btn-close"
             onKeyDown={this._handleKeyDown}
             onClick={onClose}>x</button>
           <div className='modal-content'>
@@ -42,3 +41,14 @@ export default class Modal extends React.Component {
     );
   }
 }
+
+Modal.propTypes = {
+  children: PropTypes.any.isRequired,
+  onClose: PropTypes.func.isRequired
+};
+
+Modal.defaultProps = {
+  children: []
+};
+
+export default Modal;

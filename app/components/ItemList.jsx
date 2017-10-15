@@ -3,33 +3,39 @@ import PropTypes from 'prop-types';
 
 import ListItem from './ListItem';
 
-//export default ({items, ...rest}) => (
 
-export default class ItemList extends React.Component {
-
+class ItemList extends React.Component {
   constructor(props) {
     super(props);
   }
 
-
   render() {
+    const {
+      items,
+      updateEditItemId
+    } = this.props;
 
-    const {items, ...rest} = this.props;
-
-    console.log(rest);
-    console.log(this.props);
-
-    return (<ul className='item-list'>
-      {items.map((item, i) =>
-        !item.hidden &&
-        <ListItem
-          key={i}
-          item={item}
-          {...rest}
-        />
-      )}
+    return (
+      <ul className='item-list'
+        role='main'>
+        {items.map((item, i) =>
+          !item.hidden &&
+          <ListItem key={i}
+            item={item}
+            updateEditItemId={updateEditItemId}
+          />
+        )}
     </ul>)
   }
-
 }
 
+ItemList.propTypes = {
+  items: PropTypes.array.isRequired,
+  updateEditItemId: PropTypes.func.isRequired
+};
+
+ItemList.defaultProps = {
+  items: []
+};
+
+export default ItemList;

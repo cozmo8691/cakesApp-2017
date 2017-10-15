@@ -2,71 +2,103 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import find from 'lodash/find';
-import {browserHistory} from 'react-router';
+import uuid from 'js-uuid';
 
-import {loadItems} from '../API/client';
+import * as modes from '../config/modes';
 import ItemList from './ItemList';
 import Modal from './Modal';
 import Form from './Form';
 import {
-  fetchItemsSuccess
+  fetchItems,
+  saveItem,
+  filterItems,
+  updateFetchItemsStatus,
+  updateEditItemId
 } from '../actions/actions';
 
-const itemTemplate = {title: '', desc: '', image: ''};
+const itemTemplate = {title: '', desc: '', image: '', itemId: ''};
 
 
-class MainContainer extends Component {
+export class MainContainer extends Component {
 
   constructor(props) {
     super(props);
+
+    const {dispatch} = props;
+    dispatch(updateFetchItemsStatus(modes.PENDING));
+    dispatch(fetchItems());
   }
 
-  componentDidMount() {
-    //loadItems('http://localhost:3001/cakes')
-    loadItems('https://gist.githubusercontent.com/hart88/198f29ec5114a3ec3460/raw/8dd19a88f9b8d24c23d9960f3300d0c917a4f07c/cake.json')
-      .then((json) => {
-        console.log(json);
-        this.props.dispatch(fetchItemsSuccess(json));
-      }
-    );
-  }
-
-  _cancelEdit = () => {
-    browserHistory.push('/');
+  _cancelModal = () => {
+    this.props.updateEditItemId(null);
   };
 
   render() {
-
     const {
-      editItem
+      item,
+      requestStatus,
+      filterItems,
+      updateEditItemId
     } = this.props;
+
+    const {items, ...props} = this.props;
 
     return (
       <div>
-        <header>Main Header</header>
-        <ItemList {...this.props} />
-        {
-          editItem !== null &&
-            <Modal
-              item={editItem}
-              onClose={this._cancelEdit}>
-              <Form />
-            </Modal>
+        <header role='banner'>
+          {requestStatus === modes.PENDING &&
+            <div className='loading-msg'>Loading</div>
+          }
+          <label>Enter search term</label>
+          <input type='text'
+            className='search-input'
+            placeholder='Enter search term'
+            onChange={e => {filterItems(e.target.value)}}
+          />
+          <i className='material-icons'>search</i>
+        </header>
+
+        <ItemList items={items} updateEditItemId={updateEditItemId} />
+        {item !== null &&
+          <Modal
+            onClose={this._cancelModal}>
+            <Form
+              {...props}
+              cancelModal={this._cancelModal}
+            />
+          </Modal>
         }
+        <div className='btn btn-add'
+          onClick={updateEditItemId.bind(null, uuid())}>+</div>
       </div>
     );
   }
 }
 
-// MainContainer.propTypes = {
-//   children: PropTypes.any.isRequired,
-// };
+MainContainer.propTypes = {
+  items: PropTypes.array.isRequired,
+  item: PropTypes.any,
+  requestStatus: PropTypes.string.isRequired
+};
+
+MainContainer.defaultProps = {
+  items: [],
+  item: null,
+  requestStatus: modes.IDLE
+};
 
 
-const mapStateToProps = function(store, ownProps) {
+const mapStateToProps = function(store) {
+  function getEditItem(id) {
+    if (!id) {
+      return null;
+    }
 
-  function getItemById(id) {
-    return !id ? null : Object.assign(itemTemplate,
+    // set up default item template object
+    const editItem = Object.assign({}, itemTemplate, {itemId: id});
+
+    //if we can find it we're editing so return the item object
+    return Object.assign({}, editItem,
       find(store.itemsState.items,
         item => item.itemId === id
       )
@@ -75,13 +107,23 @@ const mapStateToProps = function(store, ownProps) {
 
   return {
     items: store.itemsState.items,
-    editItem: getItemById(ownProps.params.id)
+    item: getEditItem(store.itemsState.editItemId),
+    requestStatus: store.itemsState.requestStatus
   };
 };
 
 const mapDispatchToProps = function(dispatch) {
   return {
-    dispatch
+    dispatch,
+    saveItem: item => {
+      dispatch(saveItem(item))
+    },
+    filterItems: searchTerm => {
+      dispatch(filterItems(searchTerm))
+    },
+    updateEditItemId: itemId => {
+      dispatch(updateEditItemId(itemId))
+    }
   }
 };
 
@@ -89,4 +131,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(MainContainer);
-

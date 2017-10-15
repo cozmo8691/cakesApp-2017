@@ -1,0 +1,29 @@
+
+header {
+
+  display: flex;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -webkit-align-items: center;
+  padding-top: 20px;
+
+  label {
+    display: none;
+  }
+
+  .search-input {
+    background: $searchInputBG;
+    border: 0;
+    color: $searchInputTextColour;
+    width: 90%;
+    max-width: 800px;
+  }
+
+  i {
+    color: orange;
+    margin-left: -30px;
+  }
+
+}

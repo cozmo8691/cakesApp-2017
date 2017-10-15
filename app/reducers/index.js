@@ -1,11 +1,10 @@
 import {combineReducers} from 'redux';
 
 import ItemsReducer from './ItemsReducer';
-import FormsReducer from './FormsReducer';
+
 
 const reducers = combineReducers({
-  itemsState: ItemsReducer,
-  formsState: FormsReducer
+  itemsState: ItemsReducer
 });
 
 export default reducers;

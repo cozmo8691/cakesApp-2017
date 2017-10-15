@@ -1,0 +1,30 @@
+
+form {
+  .itemId {
+    display: none;
+  }
+
+  .form-row {
+    margin: 5px 0;
+    position: relative;
+    width: 100%;
+    font-size: 0.8em;
+
+    @media (min-width: 620px) {
+      margin: 10px 0;
+    }
+
+    label {
+      display: block;
+      font-weight: 200;
+      text-transform: capitalize;
+    }
+
+  }
+
+  .btn-save {
+    width: 100px;
+    height: 40px;
+  }
+
+}

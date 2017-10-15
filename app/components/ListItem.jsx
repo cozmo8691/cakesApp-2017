@@ -2,19 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router';
 
-const ListItem = ({item, beginEditItem}) => (
-  <li>
+const ListItem = ({item, updateEditItemId}) => (
+  <li className='list-item'>
     <img src={item.image} alt={item.title} />
     <h2>{item.title}</h2>
     <p>{item.desc}</p>
-    <Link to={`/${item.itemId}`}>Edit</Link>
+    <div onClick={updateEditItemId.bind(null, item.itemId)}
+      className='btn btn-edit'>Edit</div>
   </li>
 );
 
-// ListItem.propTypes = {
-//   item: PropTypes.,
-// };
+ListItem.propTypes = {
+  item: PropTypes.object.isRequired,
+  updateEditItemId: PropTypes.func.isRequired
+};
 
-//<button onClick={beginEditItem.bind(null, item.itemId)} className='btn-edit'>Edit</button>
+ListItem.defaultProps = {
+  item: {}
+};
 
 export default ListItem;
