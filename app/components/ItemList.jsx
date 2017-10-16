@@ -25,7 +25,7 @@ class ItemList extends React.Component {
             updateEditItemId={updateEditItemId}
           />
         )}
-    </ul>)
+    </ul>);
   }
 }
 

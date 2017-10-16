@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import find from 'lodash/find';
 import uuid from 'js-uuid';
 
+import settings from '../config/settings';
 import * as modes from '../config/modes';
 import ItemList from './ItemList';
 import Modal from './Modal';
@@ -18,13 +19,14 @@ import {
 
 const itemTemplate = {title: '', desc: '', image: '', itemId: ''};
 
-
 export class MainContainer extends Component {
 
   constructor(props) {
     super(props);
+  }
 
-    const {dispatch} = props;
+  componentWillMount() {
+    const {dispatch} = this.props;
     dispatch(updateFetchItemsStatus(modes.PENDING));
     dispatch(fetchItems());
   }
@@ -49,11 +51,14 @@ export class MainContainer extends Component {
           {requestStatus === modes.PENDING &&
             <div className='loading-msg'>Loading</div>
           }
+          {requestStatus === modes.DONE_FAIL &&
+            <div className='error-msg'>{settings.loadingErrorMsg}</div>
+          }
           <label>Enter search term</label>
           <input type='text'
             className='search-input'
             placeholder='Enter search term'
-            onChange={e => {filterItems(e.target.value)}}
+            onChange={e => {filterItems(e.target.value);}}
           />
           <i className='material-icons'>search</i>
         </header>
@@ -78,7 +83,10 @@ export class MainContainer extends Component {
 MainContainer.propTypes = {
   items: PropTypes.array.isRequired,
   item: PropTypes.any,
-  requestStatus: PropTypes.string.isRequired
+  requestStatus: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  updateEditItemId: PropTypes.func.isRequired,
+  filterItems: PropTypes.func.isRequired
 };
 
 MainContainer.defaultProps = {
@@ -102,7 +110,7 @@ const mapStateToProps = function(store) {
       find(store.itemsState.items,
         item => item.itemId === id
       )
-    )
+    );
   }
 
   return {
@@ -116,15 +124,15 @@ const mapDispatchToProps = function(dispatch) {
   return {
     dispatch,
     saveItem: item => {
-      dispatch(saveItem(item))
+      dispatch(saveItem(item));
     },
     filterItems: searchTerm => {
-      dispatch(filterItems(searchTerm))
+      dispatch(filterItems(searchTerm));
     },
     updateEditItemId: itemId => {
-      dispatch(updateEditItemId(itemId))
+      dispatch(updateEditItemId(itemId));
     }
-  }
+  };
 };
 
 export default connect(

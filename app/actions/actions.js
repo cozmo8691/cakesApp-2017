@@ -6,13 +6,13 @@ import itemsAPI from '../API/itemsAPI';
 export function fetchItems() {
   return dispatch => {
     itemsAPI.loadData()
-      .done((response) => {
-        dispatch(fetchItemsSuccess(response));
+      .then((response) => {
+        dispatch(fetchItemsSuccess(response.data));
       })
-      .fail((response) => {
+      .catch(() => {
         dispatch(updateFetchItemsStatus(modes.DONE_FAIL));
       });
-  }
+  };
 }
 
 export function updateFetchItemsStatus(nextStatus) {

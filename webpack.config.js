@@ -33,7 +33,7 @@ const commonConfig = merge([
     appMountId: 'app'
   }),
   parts.generateSourceMaps('source-map'),
-  //parts.lintJavaScript({ include: PATHS.app }),
+  parts.lintJavaScript({ include: PATHS.app }),
   parts.loadJavaScript({ include: PATHS.app })
 ]);
 

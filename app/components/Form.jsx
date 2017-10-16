@@ -10,11 +10,25 @@ class Form extends React.Component {
     };
   }
 
+  componentWillMount() {
+    window.addEventListener('keydown', this._handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this._handleKeyDown);
+  }
+
+  _handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      this._saveItem(this.state.item);
+    }
+  };
+
   _updateValue = (key, nextValue) => {
     this.setState({item:
       Object.assign({}, this.state.item,
         {[key]: nextValue})
-    })
+    });
   };
 
   _saveItem = (item) => {
@@ -28,23 +42,26 @@ class Form extends React.Component {
 
     return (
       <form>
-        {Object.keys(item).map(key =>
+        {Object.keys(item)
+          .filter(key => key !== 'hidden')
+          .map(key =>
           <div className={`form-row ${key}`} key={key}>
             <label>{key}</label>
             <input value={item[key]}
               type='text'
-              onChange={e => {this._updateValue(key, e.target.value)}}
+              onChange={e => {this._updateValue(key, e.target.value);}}
             />
           </div>
         )}
         <div className='btn btn-save'
           onClick={this._saveItem.bind(null, item)}>Save</div>
       </form>
-    )
+    );
   }
 }
 
 Form.propTypes = {
+  saveItem: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired,
   cancelModal: PropTypes.func.isRequired
 };
