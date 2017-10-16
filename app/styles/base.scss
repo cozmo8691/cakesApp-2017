@@ -78,11 +78,19 @@ input {
   -webkit-align-items: center;
 }
 
-.loading-msg {
+.loading-msg, .error-msg {
   position: absolute;
   color: $inputTextColour;
   top: 0;
-  left: 0;
+  margin: auto;
+}
+
+.loading-msg {
+  color: $inputTextColour;
+}
+
+.error-msg {
+  color: $errorTextColour;
 }
 
 

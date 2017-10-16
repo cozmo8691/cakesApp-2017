@@ -1,14 +1,10 @@
-import $ from 'jquery';
+import axios from 'axios';
 import settings from '../config/settings';
 
 export default {
 
   loadData() {
-    return $.ajax({
-      method: 'GET',
-      url: settings.itemsURL,
-      dataType: 'json'
-    });
+    return axios.get(settings.itemsURL);
   }
 
 };

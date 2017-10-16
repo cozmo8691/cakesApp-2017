@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import find from 'lodash/find';
 import uuid from 'js-uuid';
 
+import settings from '../config/settings';
 import * as modes from '../config/modes';
 import ItemList from './ItemList';
 import Modal from './Modal';
@@ -18,13 +19,14 @@ import {
 
 const itemTemplate = {title: '', desc: '', image: '', itemId: ''};
 
-
 export class MainContainer extends Component {
 
   constructor(props) {
     super(props);
+  }
 
-    const {dispatch} = props;
+  componentWillMount() {
+    const {dispatch} = this.props;
     dispatch(updateFetchItemsStatus(modes.PENDING));
     dispatch(fetchItems());
   }
@@ -48,6 +50,9 @@ export class MainContainer extends Component {
         <header role='banner'>
           {requestStatus === modes.PENDING &&
             <div className='loading-msg'>Loading</div>
+          }
+          {requestStatus === modes.DONE_FAIL &&
+            <div className='error-msg'>{settings.loadingErrorMsg}</div>
           }
           <label>Enter search term</label>
           <input type='text'

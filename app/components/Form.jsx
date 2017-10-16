@@ -10,6 +10,20 @@ class Form extends React.Component {
     };
   }
 
+  componentWillMount() {
+    window.addEventListener('keydown', this._handleKeyDown);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this._handleKeyDown);
+  }
+
+  _handleKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      this._saveItem(this.state.item);
+    }
+  };
+
   _updateValue = (key, nextValue) => {
     this.setState({item:
       Object.assign({}, this.state.item,
@@ -28,7 +42,9 @@ class Form extends React.Component {
 
     return (
       <form>
-        {Object.keys(item).map(key =>
+        {Object.keys(item)
+          .filter(key => key !== 'hidden')
+          .map(key =>
           <div className={`form-row ${key}`} key={key}>
             <label>{key}</label>
             <input value={item[key]}
