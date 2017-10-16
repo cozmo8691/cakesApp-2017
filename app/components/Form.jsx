@@ -14,7 +14,7 @@ class Form extends React.Component {
     this.setState({item:
       Object.assign({}, this.state.item,
         {[key]: nextValue})
-    })
+    });
   };
 
   _saveItem = (item) => {
@@ -33,18 +33,19 @@ class Form extends React.Component {
             <label>{key}</label>
             <input value={item[key]}
               type='text'
-              onChange={e => {this._updateValue(key, e.target.value)}}
+              onChange={e => {this._updateValue(key, e.target.value);}}
             />
           </div>
         )}
         <div className='btn btn-save'
           onClick={this._saveItem.bind(null, item)}>Save</div>
       </form>
-    )
+    );
   }
 }
 
 Form.propTypes = {
+  saveItem: PropTypes.func.isRequired,
   item: PropTypes.object.isRequired,
   cancelModal: PropTypes.func.isRequired
 };

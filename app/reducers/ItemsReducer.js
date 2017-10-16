@@ -69,7 +69,7 @@ function items(state = [], action) {
         ));
 
     default:
-      return state
+      return state;
   }
 }
 

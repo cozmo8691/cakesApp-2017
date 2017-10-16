@@ -9,10 +9,10 @@ export function fetchItems() {
       .done((response) => {
         dispatch(fetchItemsSuccess(response));
       })
-      .fail((response) => {
+      .fail(() => {
         dispatch(updateFetchItemsStatus(modes.DONE_FAIL));
       });
-  }
+  };
 }
 
 export function updateFetchItemsStatus(nextStatus) {

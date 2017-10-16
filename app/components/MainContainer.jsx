@@ -53,7 +53,7 @@ export class MainContainer extends Component {
           <input type='text'
             className='search-input'
             placeholder='Enter search term'
-            onChange={e => {filterItems(e.target.value)}}
+            onChange={e => {filterItems(e.target.value);}}
           />
           <i className='material-icons'>search</i>
         </header>
@@ -78,7 +78,10 @@ export class MainContainer extends Component {
 MainContainer.propTypes = {
   items: PropTypes.array.isRequired,
   item: PropTypes.any,
-  requestStatus: PropTypes.string.isRequired
+  requestStatus: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  updateEditItemId: PropTypes.func.isRequired,
+  filterItems: PropTypes.func.isRequired
 };
 
 MainContainer.defaultProps = {
@@ -102,7 +105,7 @@ const mapStateToProps = function(store) {
       find(store.itemsState.items,
         item => item.itemId === id
       )
-    )
+    );
   }
 
   return {
@@ -116,15 +119,15 @@ const mapDispatchToProps = function(dispatch) {
   return {
     dispatch,
     saveItem: item => {
-      dispatch(saveItem(item))
+      dispatch(saveItem(item));
     },
     filterItems: searchTerm => {
-      dispatch(filterItems(searchTerm))
+      dispatch(filterItems(searchTerm));
     },
     updateEditItemId: itemId => {
-      dispatch(updateEditItemId(itemId))
+      dispatch(updateEditItemId(itemId));
     }
-  }
+  };
 };
 
 export default connect(
