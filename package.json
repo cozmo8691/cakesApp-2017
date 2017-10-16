@@ -50,7 +50,6 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
-    "jquery": "^3.2.1",
     "js-uuid": "0.0.6",
     "prop-types": "^15.6.0",
     "react": "15.6.1",
