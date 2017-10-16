@@ -1,7 +1,9 @@
+import find from 'lodash/find';
+
 import * as Types from '../actions/actionTypes';
 import * as modes from '../config/modes';
 import itemsAPI from '../API/itemsAPI';
-
+import store from '../store';
 
 export function fetchItems() {
   return dispatch => {
@@ -37,9 +39,42 @@ export function loadItems(items) {
   };
 }
 
-export function saveItem(item) {
+export function saveItem(saveItem) {
+  return dispatch => {
+    const items = store.getState().itemsState.items;
+
+    if (find(items, item => item.itemId === saveItem.itemId)) {
+      dispatch(updateItem(saveItem));
+      dispatch(displayMessage('Item successfully updated'));
+    }
+    else {
+      dispatch(addItem(saveItem));
+      dispatch(displayMessage('Item added successfully'));
+    }
+
+    setTimeout(() => {
+      dispatch(displayMessage(''));
+    }, 3000);
+  };
+}
+
+export function displayMessage(message) {
   return {
-    type: Types.SAVE_ITEM,
+    type: Types.DISPLAY_MESSAGE,
+    message
+  };
+}
+
+export function updateItem(item) {
+  return {
+    type: Types.UPDATE_ITEM,
+    item
+  };
+}
+
+export function addItem(item) {
+  return {
+    type: Types.ADD_ITEM,
     item
   };
 }

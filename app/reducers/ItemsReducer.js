@@ -1,5 +1,4 @@
 import uuid from 'js-uuid';
-import find from 'lodash/find';
 
 import * as Types from '../actions/actionTypes';
 import * as modes from '../config/modes';
@@ -7,7 +6,8 @@ import * as modes from '../config/modes';
 const initialState = {
   items: [],
   editItemId: null,
-  requestStatus: modes.IDLE
+  requestStatus: modes.IDLE,
+  statusMessage: ''
 };
 
 const ItemsReducer = function(state = initialState, action) {
@@ -28,10 +28,16 @@ const ItemsReducer = function(state = initialState, action) {
         items: items(action.items, action)
       });
 
-    case Types.SAVE_ITEM:
+    case Types.UPDATE_ITEM:
+    case Types.ADD_ITEM:
     case Types.FILTER_ITEMS:
       return Object.assign({}, state, {
         items: items(state.items, action)
+      });
+
+    case Types.DISPLAY_MESSAGE:
+      return Object.assign({}, state, {
+        statusMessage: action.message
       });
   }
 
@@ -48,16 +54,15 @@ function items(state = [], action) {
           })
         ));
 
-    case Types.SAVE_ITEM:
-      if (find(state, item => item.itemId === action.item.itemId)) {
-        return state
-          .map(item => (
-            item.itemId === action.item.itemId ?
-              Object.assign({}, item, action.item)
-              : item
-          ));
-      }
+    case Types.UPDATE_ITEM:
+      return state
+        .map(item => (
+          item.itemId === action.item.itemId ?
+            Object.assign({}, item, action.item)
+            : item
+        ));
 
+    case Types.ADD_ITEM:
       return [...state, action.item];
 
     case Types.FILTER_ITEMS:
