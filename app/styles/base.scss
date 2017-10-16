@@ -85,14 +85,22 @@ input {
   margin: auto;
 }
 
-.loading-msg {
+.status-msg, .loading-msg, .error-msg {
+  top: 0;
+  left: 50%;
+  margin-left: -130px;
+  width: 260px;
+  padding: 5px 10px;
+  position: fixed;
   color: $inputTextColour;
+  background: cornsilk;
+  animation: fadein 0.5s;
+  text-align: center;
 }
 
 .error-msg {
   color: $errorTextColour;
 }
-
 
 
 @media (min-width: 620px) {

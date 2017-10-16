@@ -40,7 +40,8 @@ export class MainContainer extends Component {
       item,
       requestStatus,
       filterItems,
-      updateEditItemId
+      updateEditItemId,
+      statusMessage
     } = this.props;
 
     const {items, ...props} = this.props;
@@ -54,6 +55,7 @@ export class MainContainer extends Component {
           {requestStatus === modes.DONE_FAIL &&
             <div className='error-msg'>{settings.loadingErrorMsg}</div>
           }
+          {statusMessage && <div className='status-msg'>{statusMessage}</div>}
           <label>Enter search term</label>
           <input type='text'
             className='search-input'
@@ -86,7 +88,8 @@ MainContainer.propTypes = {
   requestStatus: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
   updateEditItemId: PropTypes.func.isRequired,
-  filterItems: PropTypes.func.isRequired
+  filterItems: PropTypes.func.isRequired,
+  statusMessage: PropTypes.string
 };
 
 MainContainer.defaultProps = {
@@ -116,7 +119,8 @@ const mapStateToProps = function(store) {
   return {
     items: store.itemsState.items,
     item: getEditItem(store.itemsState.editItemId),
-    requestStatus: store.itemsState.requestStatus
+    requestStatus: store.itemsState.requestStatus,
+    statusMessage: store.itemsState.statusMessage
   };
 };
 
