@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import settings from '../config/settings';
 
 class Form extends React.Component {
   constructor(props) {
@@ -39,9 +40,13 @@ class Form extends React.Component {
 
   render() {
     const {item} = this.state;
+    const {title} = this.props.item;
+    const heading = title ? `Editing ${title}`
+      : `Adding a New ${settings.entity}`;
 
     return (
       <form>
+        <legend>{heading}</legend>
         {Object.keys(item)
           .filter(key => key !== 'hidden')
           .map(key =>
