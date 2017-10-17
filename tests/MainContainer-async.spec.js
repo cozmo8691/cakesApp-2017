@@ -24,17 +24,20 @@ const itemData = [
   {
     "title":"Lemon cheesecake",
     "desc":"A cheesecake made of lemon.",
-    "image":"cake.jpg"
+    "image":"cake.jpg",
+    "itemId": "123"
   },
   {
     "title":"Chocolate cake",
     "desc":"There goes my diet.",
-    "image":"cake.jpg"
+    "image":"cake.jpg",
+    "itemId": "456"
   },
   {
     "title":"Carrot cake",
     "desc":"A healthier option.",
-    "image":"cake.jpg"
+    "image":"cake.jpg",
+    "itemId": "789"
   }
 ];
 
@@ -206,8 +209,13 @@ describe('MainContainer', function() {
           expect(wrapper.find('.modal-wrapper').length, 'modal should now be there').to.equal(1);
 
         const titleInput = wrapper.find('form input').at(0);
+        const descInput = wrapper.find('form input').at(1);
+        const imgInput = wrapper.find('form input').at(2);
 
         titleInput.simulate('change', ev);
+        descInput.simulate('change', ev);
+        imgInput.simulate('change', ev);
+        imgInput.simulate('blur', {});
 
         const saveBtn = wrapper.find('.btn-save').at(0);
 
