@@ -49,14 +49,17 @@ class Form extends React.Component {
         <legend>{heading}</legend>
         {Object.keys(item)
           .filter(key => key !== 'hidden')
-          .map(key =>
-          <div className={`form-row ${key}`} key={key}>
-            <label>{key}</label>
-            <input value={item[key]}
-              type='text'
-              onChange={e => {this._updateValue(key, e.target.value);}}
-            />
-          </div>
+          .map((key, i) =>
+            <div className={`form-row ${key}`} key={key}>
+              <label>{key}</label>
+              <input value={item[key]}
+                type='text'
+                onChange={e => {
+                 this._updateValue(key, e.target.value);
+                }}
+                autoFocus={i === 0}
+              />
+            </div>
         )}
         <div className='btn btn-save'
           onClick={this._saveItem.bind(null, item)}>Save</div>
